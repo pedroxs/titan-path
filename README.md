@@ -51,3 +51,13 @@ curl -XPOST localhost:9000/trace-route/SP -H "Content-Type: application/json" -d
     "price": 2.8
 }'
 ```
+
+### Known issues
+
+- Global application hook is not working properly
+- Needs better error handling
+
+### Where to evolve
+
+- Add a way to remove locations
+- Use Scala Futures for better scalability and performance
