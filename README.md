@@ -40,13 +40,36 @@ curl -XPOST localhost:9000/add-path/SP -H "Content-Type: application/json" -d '
 }'
 ```
 
+To add a list of paths send a POST request to /add-paths/:map
+ex:
+```
+curl -XPOST localhost:9000/add-paths/SP -H "Content-Type: application/json" -d '
+[
+{
+    "origin": "Sao Paulo",
+    "destination": "Maringa",
+    "distance": 120
+},
+{
+    "origin": "Maringa",
+    "destination": "Marilia",
+    "distance": 95
+},
+{
+    "origin": "Maringa",
+    "destination": "Guarulhos",
+    "distance": 65
+}
+]'
+```
+
 To trace a route send a POST to /trace-route/:map
 ex:
 ```
 curl -XPOST localhost:9000/trace-route/SP -H "Content-Type: application/json" -d '
 {
     "origin": "Sao Paulo",
-    "destination": "Maringa",
+    "destination": "Marilia",
     "autonomy": 50,
     "price": 2.8
 }'

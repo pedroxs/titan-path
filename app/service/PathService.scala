@@ -44,7 +44,7 @@ trait PathService extends TitanConf {
           val paths = ScalaVertex.apply(o).as("o").outE.inV.jump(
             to = "o",
             jumpPredicate = { t: Traverser[Vertex] =>
-              t.loops() < 6 &&
+              t.loops() < 8 &&
               t.get.value[String]("name") != traceRequest.origin &&
               t.get.value[String]("name") != traceRequest.destination
             }
@@ -61,6 +61,7 @@ trait PathService extends TitanConf {
 
             TraceResult(pathDescriptions, pathDistance, (pathDistance / traceRequest.autonomy) * traceRequest.price)
           }
+          if(traceResult.isEmpty) throw new Exception("Path not found")
           traceResult.sortBy(_.distance).head
         }
       }

@@ -6,6 +6,7 @@
 GET         /                        controllers.Application.index
 
 POST        /add-path/:map           controllers.PathController.add(map)
+POST        /add-paths/:map          controllers.PathController.addList(map)
 POST        /trace-route/:map        controllers.PathController.trace(map)
 
 # Map static resources from the /public folder to the /assets URL path
