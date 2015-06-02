@@ -9,7 +9,7 @@ import play.api.Logger
  */
 trait TitanConf {
 
-  val prop = getClass.getResource("/titan-cassandra.properties")
+  val prop = getClass.getResource("/titan-inmemory.properties")
   var graph: TitanGraph = null
 
   def connect() = {
@@ -22,9 +22,15 @@ trait TitanConf {
   }
 
   def execute[T](fn: (ScalaGraph) => T) = {
-    if(graph == null) { Logger.info("had to reconnect"); connect()}
-    val gremlin = GremlinScala(graph)
-    fn(gremlin)
-  }
+    if(graph == null) {
+      Logger.info("had to reconnect"); connect()
+    }
 
+    val gremlin = GremlinScala(graph)
+    val gp = fn(gremlin)
+
+    graph.tx().commit()
+
+    gp
+  }
 }
